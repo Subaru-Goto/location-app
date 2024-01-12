@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, useMap, Marker, Popup} from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { fetchGeoData, fetchCountryData } from '../api/api';
 import {useState, useEffect} from "react";
@@ -19,12 +19,11 @@ function Map() {
     } finally{
       setIsLoading(false);
     }
-
   }
 
-useEffect(() => {
-  fetchData();
-}, [])
+  useEffect(() => {
+    fetchData();
+  }, [])
 
 // TO DO: calculate current time from timezone "utc+1"
 const { region, city, lat, lng, timezone } = geoData;
@@ -33,25 +32,26 @@ const location = [lat, lng]
 
   return (
     <>
-    <h1 className="text-center p-5 text-5xl">Where am I?</h1>
-    <div className="flex justify-center gap-5 p-10 text-lg">
-      <h2>Country: {name.common}{flag}</h2>
-      <h2>Region: {region}</h2>
-      <h2>City: {city}</h2>
-      <h2>Time Zone: {timezone}</h2>
-    </div>
-    {!isLoading ? <MapContainer center={location} zoom={13} scrollWheelZoom={false}>
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={location}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </MapContainer>
-           :<h2>Loading...</h2>}
+      {!isLoading ? <><h1 className="text-center p-5 text-5xl">Where am I?</h1>
+        <div className="flex justify-center gap-5 p-10 text-lg">
+          <h2>Country: {name.common}{flag}</h2>
+          <h2>Region: {region}</h2>
+          <h2>City: {city}</h2>
+          <h2>Time Zone: {timezone}</h2>
+        </div>
+        <MapContainer center={location} zoom={13} scrollWheelZoom={false}>
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={location}>
+                  <Popup>
+                    A pretty CSS3 popup. <br /> Easily customizable.
+                  </Popup>
+                </Marker>
+        </MapContainer>
+      </>
+            :<h2 className="text-center">Loading...</h2>}
     </>
   )
 }
