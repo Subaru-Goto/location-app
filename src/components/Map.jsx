@@ -31,8 +31,6 @@ const { region, city, lat, lng, timezone } = geoData;
 const { name, flag } = countryData;
 const location = [lat, lng]
 
-console.log(countryData)
-
   return (
     <>
     <h1 className="text-center p-5 text-5xl">Where am I?</h1>
