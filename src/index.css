@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.leaflet-container {
+  margin: 0 auto;
+  height: 40rem;
+  aspect-ratio: 3 / 2;
+  position: relative;
+  border-radius: 2rem;
+  box-shadow: var(--shadow-elevation-medium);
+}
